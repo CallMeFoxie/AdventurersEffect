@@ -28,6 +28,9 @@ public class Effect {
    }
 
    public static void tryApplying(EntityPlayer player, ItemStack itemStack) {
+      if (TriggerLoader.getTriggers() == null)
+         return;
+
       for (Triggers trigger : TriggerLoader.getTriggers()) {
          if (itemStack.getUnlocalizedName().equals(trigger.itemName) &&
                (!trigger.matchDamage || trigger.damageValue == itemStack.getItemDamage()) &&
