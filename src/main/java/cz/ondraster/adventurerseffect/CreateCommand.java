@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CreateCommand implements ICommand {
    @Override
-   public String getName() {
+   public String getCommandName() {
       return "aeadd";
    }
 
@@ -22,12 +22,13 @@ public class CreateCommand implements ICommand {
    }
 
    @Override
-   public List getAliases() {
+   public List getCommandAliases() {
       return new ArrayList<String>();
    }
 
    @Override
-   public void execute(ICommandSender sender, String[] args) throws CommandException {
+   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+
       if (args.length != 5 || !(sender instanceof EntityPlayer))
          throw new CommandException("Incorrect number of args\n" + getCommandUsage(sender));
 
@@ -36,7 +37,7 @@ public class CreateCommand implements ICommand {
       if (player.getCurrentEquippedItem() == null)
          throw new CommandException("You must be holding specified item.");
 
-      if (!player.canUseCommand(2, "difficulty"))
+      if (!player.canCommandSenderUseCommand(2, "difficulty"))
          throw new CommandException("Not enough permissions!");
 
       boolean useMeta = false, useNBT = false;
@@ -64,9 +65,9 @@ public class CreateCommand implements ICommand {
    }
 
    @Override
-   public boolean canCommandSenderUse(ICommandSender sender) {
+   public boolean canCommandSenderUseCommand(ICommandSender sender) {
       if (sender instanceof EntityPlayer) {
-         return sender.canUseCommand(2, "difficulty");
+         return sender.canCommandSenderUseCommand(2, "difficulty");
       }
       return true;
    }

@@ -6,7 +6,7 @@ import java.io.File;
 
 public class Config {
    private Configuration cfg;
-   public static int ticksInterval = 100;
+   public static int ticksInterval = 40;
 
    public Config(String filename) {
       cfg = new Configuration(new File(filename));
