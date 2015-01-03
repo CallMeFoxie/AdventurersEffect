@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.io.File;
 
-@Mod(modid = "adventurerseffect", version = "1.0", name = "Adventurer's Effect", acceptableRemoteVersions = "*")
+@Mod(modid = "adventurerseffect", version = "1.1", name = "Adventurer's Effect", acceptableRemoteVersions = "*")
 public class AdventurersEffect {
 
    public static String pathToConfigs;
@@ -59,7 +59,7 @@ public class AdventurersEffect {
       ticksSinceLastUpdate++;
 
       if (ticksSinceLastUpdate >= Config.ticksInterval) {
-         Effect.scanInventory(event.player, TriggerLoader.getTriggers());
+         Effect.scanInventory(event.player);
          ticksSinceLastUpdate = 0;
       }
    }

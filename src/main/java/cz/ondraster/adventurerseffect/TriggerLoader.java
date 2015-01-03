@@ -27,7 +27,7 @@ public class TriggerLoader {
          Type listOfObjects = new TypeToken<ArrayList<Triggers>>() {
          }.getType();
 
-         triggers = (ArrayList<Triggers>) gson.fromJson(rd, listOfObjects);
+         triggers = gson.fromJson(rd, listOfObjects);
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -57,7 +57,7 @@ public class TriggerLoader {
    }
 
    public static void addTrigger(String potionEffect, int amplifier, int duration,
-                                 ItemStack itemStack, boolean useMeta, boolean useNBT) throws IOException {
+                                 ItemStack itemStack, boolean useMeta, boolean useNBT, int amountOfItem) throws IOException {
       Triggers trigger = new Triggers();
       trigger.amplifier = amplifier;
       trigger.damageValue = itemStack.getItemDamage();
@@ -66,6 +66,7 @@ public class TriggerLoader {
       trigger.matchDamage = useMeta;
       trigger.matchNBT = useNBT;
       trigger.potionName = potionEffect;
+      trigger.amountOfItem = amountOfItem;
 
       if (triggers == null)
          triggers = new ArrayList<Triggers>();

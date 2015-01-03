@@ -18,7 +18,7 @@ public class CreateCommand implements ICommand {
 
    @Override
    public String getCommandUsage(ICommandSender sender) {
-      return "aeadd <usemeta> <usenbt> <potionName> <potionAmplifier> <potionDuration>";
+      return "aeadd <usemeta> <usenbt> <potionName> <potionAmplifier> <potionDuration> [<amountOfItem>]";
    }
 
    @Override
@@ -29,7 +29,7 @@ public class CreateCommand implements ICommand {
    @Override
    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 
-      if (args.length != 5 || !(sender instanceof EntityPlayer))
+      if (args.length < 5 || !(sender instanceof EntityPlayer))
          throw new CommandException("Incorrect number of args\n" + getCommandUsage(sender));
 
       EntityPlayer player = (EntityPlayer) sender;
@@ -41,6 +41,7 @@ public class CreateCommand implements ICommand {
          throw new CommandException("Not enough permissions!");
 
       boolean useMeta = false, useNBT = false;
+      int amountOfItem = 1;
       String potionName = args[2];
       int potionAmplifier = Integer.parseInt(args[3]);
       int potionDuration = Integer.parseInt(args[4]);
@@ -50,12 +51,15 @@ public class CreateCommand implements ICommand {
       if (args[1].equals("yes") || args[1].equals("true"))
          useNBT = true;
 
+      if (args.length == 6)
+         amountOfItem = Integer.parseInt(args[5]);
+
       if (TriggerLoader.getPotion(potionName) == null)
          throw new CommandException("Unknown potion effect!");
 
       try {
          TriggerLoader.addTrigger(potionName, potionAmplifier, potionDuration,
-               player.getCurrentEquippedItem(), useMeta, useNBT);
+               player.getCurrentEquippedItem(), useMeta, useNBT, amountOfItem);
       } catch (IOException e) {
          e.printStackTrace();
          throw new CommandException("Failed to save potion trigger :(");

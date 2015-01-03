@@ -11,5 +11,6 @@ public class Triggers {
    NBTTagCompound nbtTagCompound;
    boolean matchNBT;
    boolean matchDamage;
+   int amountOfItem;
 
 }
